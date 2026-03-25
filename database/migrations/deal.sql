@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS deals(
+    id SERIAL PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    title VARCHAR(255),
+    description TEXT,
+    amount DECIMAL(10, 2),
+    category VARCHAR(255),
+    seller_email VARCHAR(255),
+    seller_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    buyer_email VARCHAR(255),
+    buyer_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    role tx_role,
+    currency VARCHAR(255),
+    stage tx_stage,
+    fee_payer tx_role,
+    milestone_id INTEGER REFERENCES milestones(id) ON DELETE CASCADE,
+    inspection_period INTEGER,
+    status tx_status DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
