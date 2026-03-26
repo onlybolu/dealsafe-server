@@ -32,11 +32,10 @@ func GetProfile(c *gin.Context) {
 		return
 	}
 
+	user.Password = ""
+
 	c.JSON(200, gin.H{
 		"message": "Profile retrieved successfully",
-		"user": gin.H{
-			"user": user,
-			// You can query the database here using database.Queries.FindUserByID(c, uuid)
-		},
+		"user": user,
 	})
 }

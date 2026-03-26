@@ -18,8 +18,8 @@ func GenerateAPIKeys() (string, string, error) {
 	}
 
 	// Format them safely. e.g pk_test_1234abcd and sk_test_5678efgh
-	pubKey := fmt.Sprintf("pk_test_%s", hex.EncodeToString(pubBytes))
-	privKey := fmt.Sprintf("sk_test_%s", hex.EncodeToString(privBytes))
+	pubKey := fmt.Sprintf("dsf_test_pk_%s", hex.EncodeToString(pubBytes))
+	privKey := fmt.Sprintf("dsf_test_sk_%s", hex.EncodeToString(privBytes))
 
 	return pubKey, privKey, nil
 }
@@ -37,8 +37,8 @@ func GenerateLiveApiKeys()(string, string, error){
 	}
 
 	// Format them safely. e.g pk_test_1234abcd and sk_test_5678efgh
-	pubKey := fmt.Sprintf("pk_live_%s", hex.EncodeToString(pubBytes))
-	privKey := fmt.Sprintf("sk_live_%s", hex.EncodeToString(privBytes))
+	pubKey := fmt.Sprintf("dsf_live_pk_%s", hex.EncodeToString(pubBytes))
+	privKey := fmt.Sprintf("dsf_live_sk_%s", hex.EncodeToString(privBytes))
 
 	return pubKey, privKey, nil
 }
