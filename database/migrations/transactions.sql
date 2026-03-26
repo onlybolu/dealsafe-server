@@ -3,7 +3,7 @@ CREATE TYPE tx_role AS ENUM ('buyer', 'seller');
 CREATE TYPE tx_stage AS ENUM ('terms_accepted', 'buyer_funded', 'seller_delivers', 'inspection', 'inspection_approved', 'inspection_rejected', 'dispute', 'dispute_resolved', 'completed');
 
 CREATE TABLE IF NOT EXISTS milestones (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     name VARCHAR(255),
     percentage DECIMAL(10, 2),
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS milestones (
 );
 
 CREATE TABLE IF NOT EXISTS transactions (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     transaction_id VARCHAR(255),
     role tx_role,

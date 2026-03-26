@@ -191,7 +191,7 @@ func (ns NullTxStatus) Value() (driver.Value, error) {
 }
 
 type Deal struct {
-	ID               int32
+	ID               uuid.UUID
 	UserID           uuid.UUID
 	Title            sql.NullString
 	Description      sql.NullString
@@ -213,7 +213,7 @@ type Deal struct {
 }
 
 type Milestone struct {
-	ID         int32
+	ID         uuid.UUID
 	UserID     uuid.UUID
 	Name       sql.NullString
 	Percentage sql.NullString
@@ -225,7 +225,7 @@ type Milestone struct {
 }
 
 type Notification struct {
-	ID        int32
+	ID        uuid.UUID
 	UserID    uuid.UUID
 	Title     sql.NullString
 	Message   sql.NullString
@@ -236,7 +236,7 @@ type Notification struct {
 }
 
 type Transaction struct {
-	ID               int32
+	ID               uuid.UUID
 	UserID           uuid.UUID
 	TransactionID    sql.NullString
 	Role             NullTxRole
@@ -278,7 +278,7 @@ type User struct {
 }
 
 type UserBankDetail struct {
-	ID            int32
+	ID            uuid.UUID
 	UserID        uuid.UUID
 	AccountNumber sql.NullString
 	AccountName   sql.NullString
@@ -290,7 +290,7 @@ type UserBankDetail struct {
 }
 
 type UserKyc struct {
-	ID              int32
+	ID              uuid.UUID
 	UserID          uuid.UUID
 	IDType          sql.NullString
 	IDNumber        sql.NullString

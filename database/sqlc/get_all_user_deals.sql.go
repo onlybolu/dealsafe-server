@@ -57,3 +57,34 @@ func (q *Queries) GetAllUserDeals(ctx context.Context, userID uuid.UUID) ([]Deal
 	}
 	return items, nil
 }
+
+const getUserDealsByID = `-- name: GetUserDealsByID :one
+SELECT id, user_id, title, description, amount, category, seller_email, seller_id, buyer_email, buyer_id, role, currency, stage, fee_payer, milestone_id, inspection_period, status, created_at, updated_at FROM deals WHERE id = $1
+`
+
+func (q *Queries) GetUserDealsByID(ctx context.Context, id uuid.UUID) (Deal, error) {
+	row := q.db.QueryRowContext(ctx, getUserDealsByID, id)
+	var i Deal
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Title,
+		&i.Description,
+		&i.Amount,
+		&i.Category,
+		&i.SellerEmail,
+		&i.SellerID,
+		&i.BuyerEmail,
+		&i.BuyerID,
+		&i.Role,
+		&i.Currency,
+		&i.Stage,
+		&i.FeePayer,
+		&i.MilestoneID,
+		&i.InspectionPeriod,
+		&i.Status,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}

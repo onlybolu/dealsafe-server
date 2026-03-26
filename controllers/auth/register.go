@@ -79,7 +79,20 @@ func RegisterUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{
+
+	access_token, err := lib.GenerateJWT(user.Email, user.ID.String())
+
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": "Failed to generate access token",
+			"error": err.Error(),
+		})
+		return
+	}
+
+	lib.SetCookies(c, "access_token", access_token, 60*30)
+
+	c.JSON(201, gin.H{
 		"message": "User created successfully",
 		"user": user,
 	})

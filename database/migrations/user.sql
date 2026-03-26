@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS users(
 );
 
 CREATE TABLE IF NOT EXISTS user_kyc (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     id_type VARCHAR(50),
     id_number VARCHAR(255),
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS user_kyc (
 );
 
 CREATE TABLE IF NOT EXISTS user_bank_details (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     account_number VARCHAR(255),
     account_name VARCHAR(255),

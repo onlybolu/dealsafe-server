@@ -7,6 +7,8 @@ package dealsafe
 
 import (
 	"context"
+
+	"github.com/google/uuid"
 )
 
 const findUserByEmail = `-- name: FindUserByEmail :one
@@ -15,6 +17,37 @@ SELECT id, first_name, last_name, email, password, phone_number, address, city, 
 
 func (q *Queries) FindUserByEmail(ctx context.Context, email string) (User, error) {
 	row := q.db.QueryRowContext(ctx, findUserByEmail, email)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.FirstName,
+		&i.LastName,
+		&i.Email,
+		&i.Password,
+		&i.PhoneNumber,
+		&i.Address,
+		&i.City,
+		&i.CompanyName,
+		&i.State,
+		&i.ZipCode,
+		&i.TermsAccepted,
+		&i.Country,
+		&i.TestPubKey,
+		&i.TestPrivKey,
+		&i.LivePubKey,
+		&i.LivePrivKey,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const findUserByID = `-- name: FindUserByID :one
+SELECT id, first_name, last_name, email, password, phone_number, address, city, company_name, state, zip_code, terms_accepted, country, test_pub_key, test_priv_key, live_pub_key, live_priv_key, created_at, updated_at FROM users WHERE id = $1
+`
+
+func (q *Queries) FindUserByID(ctx context.Context, id uuid.UUID) (User, error) {
+	row := q.db.QueryRowContext(ctx, findUserByID, id)
 	var i User
 	err := row.Scan(
 		&i.ID,
